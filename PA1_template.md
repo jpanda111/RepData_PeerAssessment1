@@ -1,45 +1,35 @@
-
-
-```r
 ---
-title: "reproducible research course project 1"
-author: "jpandda111"
-date: "December 31,2017"
-output: html_document
+title: "Reproducible Research: Peer Assessment 1"
+output: 
+  html_document:
+    keep_md: true
 ---
-```
-
-```
-## Error: <text>:8:0: unexpected end of input
-## 6: ---
-## 7: 
-##   ^
-```
+  
 
 ```r
 knitr::opts_chunk$set(echo = TRUE, results = "asis")
 ```
 
-####1. reading in the dataset and processing the data
+## reading in the dataset and processing the data
 
 ```r
 data <- read.csv("activity.csv", header = TRUE, sep = ",")
 ```
 
-####2. histogram of the total number of steps taken each day
+## histogram of the total number of steps taken each day
 
 ```r
 totalsteps<- with(data,tapply(steps,date,sum,na.rm=T))
 hist(totalsteps)
 ```
 
-![plot of chunk histoftotalsteps](figure/histoftotalsteps-1.png)
+![](PA1_template_files/figure-html/histoftotalsteps-1.png)<!-- -->
 
 ```r
 ##hist(totalsteps,breaks=30,xlab=",,,",col="yellow")
 ```
 
-####3. Mean and median number of the total steps taken each day
+## Mean and median number of the total steps taken each day
 
 ```r
 mean(totalsteps)
@@ -53,17 +43,37 @@ median(totalsteps)
 
 [1] 10395
 
-####4. Time series plot of the average number of steps taken
+## Time series plot of the average number of steps taken
 
 ```r
 library(dplyr)
+```
+
+```
+## 
+## Attaching package: 'dplyr'
+```
+
+```
+## The following objects are masked from 'package:stats':
+## 
+##     filter, lag
+```
+
+```
+## The following objects are masked from 'package:base':
+## 
+##     intersect, setdiff, setequal, union
+```
+
+```r
 avesteps <- data %>% group_by(interval) %>% summarize(avesteps=mean(steps,na.rm=TRUE))
 plot(avesteps,type="l",xlab="5 mins Per Interval", ylab="Average Steps", main ="Average Steps Per Interval")
 ```
 
-![plot of chunk unnamed-chunk-2](figure/unnamed-chunk-2-1.png)
+![](PA1_template_files/figure-html/unnamed-chunk-1-1.png)<!-- -->
 
-####5. The 5-minute interval that, on average, contains the maximum number of steps
+## The 5-minute interval that, on average, contains the maximum number of steps
 
 ```r
 avesteps$interval[which.max(avesteps$avesteps)]
@@ -71,7 +81,7 @@ avesteps$interval[which.max(avesteps$avesteps)]
 
 [1] 835
 
-####6. one strategy for imputing missing data
+## one strategy for imputing missing data
 #####All of the missing values are filled in with mean value for each specific 5-minute interval
 
 ```r
@@ -87,7 +97,7 @@ newdata$steps[index]<-newdata$avesteps[index]
 newdata<-newdata[order(newdata$date),1:3]
 ```
 
-####7. Histogram of the total number of steps taken each day after missing values are imputed
+## Histogram of the total number of steps taken each day after missing values are imputed
 #####the mean and median values are higher after imputing missing data. That's because before imputing, NA data are removed.
 
 ```r
@@ -95,7 +105,7 @@ totalstepsnew<- with(newdata,tapply(steps,date,sum,na.rm=T))
 hist(totalstepsnew)
 ```
 
-![plot of chunk unnamed-chunk-5](figure/unnamed-chunk-5-1.png)
+![](PA1_template_files/figure-html/unnamed-chunk-4-1.png)<!-- -->
 
 ```r
 mean(totalstepsnew)
@@ -109,7 +119,7 @@ median(totalstepsnew)
 
 [1] 10766.19
 
-####8. Panel plot comparing the average number of steps taken per 5-minute interval across weekdays and weekends
+## Panel plot comparing the average number of steps taken per 5-minute interval across weekdays and weekends
 
 ```r
 library(lattice)
@@ -126,14 +136,12 @@ aveactivitydata<-aggregate(steps~interval+weeks,data=newdata,FUN="mean")
 with(aveactivitydata,xyplot(steps~interval|weeks,layout=c(1,2),type="l",ylab="Number of steps",xlab="Interval"))
 ```
 
-![plot of chunk unnamed-chunk-6](figure/unnamed-chunk-6-1.png)
+![](PA1_template_files/figure-html/unnamed-chunk-5-1.png)<!-- -->
 
-####9. All the R code needed to reproduce the results in the report are included above
+## All the R code needed to reproduce the results in the report are included above
 
 ```r
 ##library(knit)
 ##knit2html(spin("PA1_template.Rmd",knit=FALSE),force_v1 = TRUE)
-```
-```
 ```
 
