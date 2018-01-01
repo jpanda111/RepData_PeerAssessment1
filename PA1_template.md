@@ -135,4 +135,5 @@ with(aveactivitydata,xyplot(steps~interval|weeks,layout=c(1,2),type="l",ylab="Nu
 ##knit2html(spin("PA1_template.Rmd",knit=FALSE),force_v1 = TRUE)
 ```
 ```
+```
 

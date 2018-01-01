@@ -1,4 +1,5 @@
 
+```{r }
 ---
 title: "reproducible research course project 1"
 author: "jpandda111"
@@ -75,3 +76,6 @@ with(aveactivitydata,xyplot(steps~interval|weeks,layout=c(1,2),type="l",ylab="Nu
 ##library(knit)
 ##knit2html(spin("PA1_template.Rmd",knit=FALSE),force_v1 = TRUE)
 ```
+```
+```
+
