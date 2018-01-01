@@ -7,13 +7,12 @@ author: "jpandda111"
 date: "December 31,2017"
 output: html_document
 ---
-
 ```
 
 ```
-## Error: <text>:9:0: unexpected end of input
+## Error: <text>:8:0: unexpected end of input
+## 6: ---
 ## 7: 
-## 8: 
 ##   ^
 ```
 
@@ -130,5 +129,10 @@ with(aveactivitydata,xyplot(steps~interval|weeks,layout=c(1,2),type="l",ylab="Nu
 ![plot of chunk unnamed-chunk-6](figure/unnamed-chunk-6-1.png)
 
 ####9. All the R code needed to reproduce the results in the report are included above
+
+```r
+##library(knit)
+##knit2html(spin("PA1_template.Rmd",knit=FALSE),force_v1 = TRUE)
+```
 ```
 
